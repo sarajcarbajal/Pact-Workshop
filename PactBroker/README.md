@@ -30,7 +30,7 @@ Los siguientes pasos, podría tener sentido realizarlos en dos instancias de Jen
 - Configuración previa Pact Broker con docker
   - Para permitir la conexión entre el contenedor de docker y nuestro Jenkins local debemos añadir las siguientes líneas al archivo docker-compose
     - `PACT_BROKER_WEBHOOK_SCHEME_WHITELIST: http`
-    - `PACT_BROKER_WEBHOOK_HOST_WHITELIST: 192.168.0.12`
+    - `PACT_BROKER_WEBHOOK_HOST_WHITELIST: host.docker.internal`
 - Iniciar Pact Broker: `docker-compose up`
 - Arrancar Jenkins en local
 - Crear una tarea de tipo "**Pipeline**"
@@ -38,33 +38,33 @@ Los siguientes pasos, podría tener sentido realizarlos en dos instancias de Jen
 - _Este paso es opcional_. Podríamos configurar esta tarea para que se ejecute cuando detecte cambios en el repositorio
   - Indicar el GitHub Project correspondiente
   - Configurar la periodicidad de consulta del repositorio
-    - Por ejemplo, cada 5 minutos -> `*/5 * * * * `
+    - Por ejemplo, cada 5 minutos -> `*/5 * * * *`
 - Crear el pipeline para creación y publicación de pactos
 
-  - ```groovy
-        pipeline {
-        agent any
+  ```groovy
+  pipeline {
+    agent any
 
-        stages {
-            stage('Get project'){
-                steps{
-                   git branch: '6-PactBroker', url: 'https://github.com/morvader/Pact-Workshop'
-                   bat "npm install"
-                }
+    stages {
+        stage('Get project'){
+            steps{
+                git branch: '6-PactBroker', url: 'https://github.com/morvader/Pact-Workshop'
+                sh "npm install"
             }
-            stage('Create Pacts') {
-                steps {
-                    bat "npm run generate-pact-client"
-                }
+        }
+        stage('Create Pacts') {
+            steps {
+                sh "npm run generate-pact-client"
             }
-            stage('Publish Pacts') {
-                steps {
-                    bat "npm run publish-pacts-Broker"
-                }
+        }
+        stage('Publish Pacts') {
+            steps {
+                sh "npm run publish-pacts-Broker"
             }
         }
     }
-    ```
+  }
+  ```
 
 - Con esto, ya deberíamos visualizar los pactos en PactBroker
   - <http://localhost:8000>
@@ -89,7 +89,7 @@ Los siguientes pasos, podría tener sentido realizarlos en dos instancias de Jen
     }
   }
 }
-```
+````
 
 ## CAN I DEPLOY
 
@@ -105,7 +105,3 @@ Los siguientes pasos, podría tener sentido realizarlos en dos instancias de Jen
 
 <https://blog.testproject.io/2020/06/09/integrating-consumer-contract-testing-in-build-pipelines/>
 <https://kreuzwerker.de/post/integrating-contract-tests-into-build-pipelines-with-pact-broker-and>
-
-```
-
-```

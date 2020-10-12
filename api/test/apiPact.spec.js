@@ -29,12 +29,13 @@ describe("Pact Verification", () => {
     let opts = {
       logLevel: "INFO",
       provider: "FilmsProvider",
+      providerVersion: "2.0.0",
       providerBaseUrl: "http://localhost:3000",
       pactBrokerUrl: process.env.PACT_BROKER_URL || "http://localhost:8000",
       pactBrokerUsername: process.env.PACT_BROKER_USERNAME || "pact_workshop",
       pactBrokerPassword: process.env.PACT_BROKER_PASSWORD || "pact_workshop",
-      providerVersion: "1.0.0",
       publishVerificationResult: true,
+      enablePending: true,
       stateHandlers: {
         "Generate films": () => {
           controller.filmRepository.clear();
@@ -51,8 +52,10 @@ describe("Pact Verification", () => {
       },
     };
 
-    return new Verifier(opts).verifyProvider().finally(() => {
+    return new Verifier(opts).verifyProvider().then(output => {
+      console.log(output);
+    }).finally(() => {
       server.close();
     });
-  });
+  })
 });

@@ -23,8 +23,8 @@ class FilmRepository {
         }
         var index = this.films.indexOf(elem);
         this.films.splice(index, 1);
-
     }
+    
     update(filmId,film) {
         var elem = this.getById(filmId);
         if (typeof elem === "undefined") {
@@ -32,7 +32,6 @@ class FilmRepository {
         }
         var index = this.films.indexOf(elem);
         this.films[index] = film;
-
     }
 
     clear() {

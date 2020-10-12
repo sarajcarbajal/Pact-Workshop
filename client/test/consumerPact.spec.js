@@ -9,7 +9,7 @@ const Film = require("../model/filmClientModel");
 // Configure and import consumer API
 // Note that we update the API endpoint to point at the Mock Service
 const LOG_LEVEL = process.env.LOG_LEVEL || "WARN";
-const API_PORT = process.env.API_PORT || 5678;
+const API_PORT = process.env.API_PORT || 8081;
 
 const provider = new Pact({
   consumer: "FilmsClient",
@@ -18,9 +18,7 @@ const provider = new Pact({
   log: path.resolve(process.cwd(), "logs", "pact.log"),
   dir: path.resolve(process.cwd(), "pacts"),
   logLevel: LOG_LEVEL,
-  spec: 2,
-  tags: ["films"],
-  providerVersion: 1.0,
+  spec: 2
 });
 
 var endPoint = "http://localhost:" + API_PORT;
@@ -61,9 +59,9 @@ describe("Pact for Film Provider", () => {
     it("returns all films", () => {
       return filmService.getAllFilms().then((response) => {
         expect(response).to.deep.members([
-          new Film(1, "Star Wars", "Space", 1980),
-          new Film(2, "Superman", "Comic", 1986),
-          new Film(3, "Indiana Jones", "Adventures", 1985),
+          new Film(1, "Star Wars", "Space", 1980, 120),
+          new Film(2, "Superman", "Comic", 1986, 90),
+          new Film(3, "Indiana Jones", "Adventures", 1985, 100)
         ]);
       });
     });
@@ -106,7 +104,7 @@ describe("Pact for Film Provider", () => {
 
     it("returns one film", () => {
       return filmService.getFilmById(1).then((response) => {
-        expect(response).to.deep.equal(new Film(1, "Star Wars", "Space", 1980));
+        expect(response).to.deep.equal(new Film(1, "Star Wars", "Space", 1980, 120));
       });
     });
     it("returns not found when film does not exist", () => {
@@ -141,7 +139,7 @@ describe("Pact for Film Provider", () => {
         uponReceiving: "Delete Film not found",
         withRequest: {
           method: "DELETE",
-          path: "/films/9",
+          path: "/films/99",
           headers: {
             Accept: "application/json",
           },
@@ -162,7 +160,7 @@ describe("Pact for Film Provider", () => {
       });
     });
     it("delete non existing film", () => {
-      return filmService.deleteFilm(9).then((response) => {
+      return filmService.deleteFilm(99).then((response) => {
         expect(response.statusCode).to.be.eq(404);
       });
     });
