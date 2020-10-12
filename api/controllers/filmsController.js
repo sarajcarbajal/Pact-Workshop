@@ -7,16 +7,16 @@ exports.filmRepository = filmRepository;
 
 exports.list_init_data = function (req, res) {
   filmRepository.clear();
-  filmRepository.insert(new Film(1, "Star Wars", "Space", 1980));
-  filmRepository.insert(new Film(2, "Superman", "Comic", 1986));
-  filmRepository.insert(new Film(3, "Indiana Jones", "Adventures", 1985));
+  filmRepository.insert(new Film(1, "Star Wars", "Space", 1980, 120));
+  filmRepository.insert(new Film(2, "Superman", "Comic", 1986, 90));
+  filmRepository.insert(new Film(3, "Indiana Jones", "Adventures", 1985, 100));
   res.end();
 };
 
 exports.init_data = () => {
-  filmRepository.insert(new Film(1, "Star Wars", "Space", 2980));
-  filmRepository.insert(new Film(20, "Superman", "Fantastic", 2986));
-  filmRepository.insert(new Film(30, "Indiana Jones", "Romance", 2985));
+  filmRepository.insert(new Film(1, "Star Wars", "Space", 2980, 220));
+  filmRepository.insert(new Film(20, "Superman", "Fantastic", 2986, 290));
+  filmRepository.insert(new Film(30, "Indiana Jones", "Romance", 2985, 200));
 };
 
 exports.list_all_films = function (req, res) {

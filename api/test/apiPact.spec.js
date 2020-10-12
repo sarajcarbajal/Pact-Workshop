@@ -46,7 +46,7 @@ describe("Pact Verification", () => {
         },
         "Generate Film 999": () => {
           controller.filmRepository.insert(
-            new Film(999, "Film To Delete", "To DELETE", "2020")
+            new Film(999, "Film To Delete", "To DELETE", "2020", 120)
           );
         },
       },
