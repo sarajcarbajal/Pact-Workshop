@@ -33,8 +33,11 @@ describe("Pact Verification", () => {
       pactBrokerUrl: process.env.PACT_BROKER_URL || "http://localhost:8000",
       pactBrokerUsername: process.env.PACT_BROKER_USERNAME || "pact_workshop",
       pactBrokerPassword: process.env.PACT_BROKER_PASSWORD || "pact_workshop",
-      providerVersion: "1.0.0",
-      publishVerificationResult: true,
+      providerVersion: "0.0.1",
+      publishVerificationResults: true,
+      // providerVersion: process.env.GIT_COMMIT,
+      // providerVersionTag: process.env.GIT_BRANCH,
+      // consumerVersionSelectors: [ { tag: process.env.GIT_BRANCH, latest: true } ],
       stateHandlers: {
         "Generate films": () => {
           controller.filmRepository.clear();
@@ -51,8 +54,10 @@ describe("Pact Verification", () => {
       },
     };
 
-    return new Verifier(opts).verifyProvider().finally(() => {
-      server.close();
+    return new Verifier(opts).verifyProvider().then(output => {
+        console.log(output);
+      }).finally(() => {
+        server.close();
     });
   });
 });

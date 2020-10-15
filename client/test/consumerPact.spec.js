@@ -18,9 +18,7 @@ const provider = new Pact({
   log: path.resolve(process.cwd(), "logs", "pact.log"),
   dir: path.resolve(process.cwd(), "pacts"),
   logLevel: LOG_LEVEL,
-  spec: 2,
-  tags: ["films"],
-  providerVersion: 1.0,
+  spec: 2
 });
 
 var endPoint = "http://localhost:" + API_PORT;

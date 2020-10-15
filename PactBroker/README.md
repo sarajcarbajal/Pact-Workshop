@@ -202,7 +202,7 @@ Desde el Pact Broker
 }
 ```
 
-### ¿Consumidor deplegable?
+### ¿Consumidor desplegable?
 
 Creamos otro webhook para que el consumidor sepa si puede desplegarse una vez que el proveedor publique los resultados.
 
