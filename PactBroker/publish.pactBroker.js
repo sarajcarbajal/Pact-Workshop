@@ -1,24 +1,25 @@
 const pact = require("@pact-foundation/pact-node");
 const path = require("path");
 
+let pactBrokerUrl = "http://localhost:8000";
 let pactBrokerUsername = process.env.PACT_BROKER_USERNAME || "pact_workshop";
 let pactBrokerPassword = process.env.PACT_BROKER_PASSWORD || "pact_workshop";
 let pactBrokerUrl = "http://localhost:8000"
 
-const gitHash =
+const exec = command =>
   require("child_process")
-    .execSync("git rev-parse --short HEAD")
-    .toString()
-    .trim() + Math.floor(Date.now() / 1000);
+    .execSync(command)
+    .toString().trim();
 
 const opts = {
   pactFilesOrDirs: [path.resolve(__dirname, "../pacts/")],
   pactBroker: pactBrokerUrl,
-  //pactBrokerToken: "jiH7q2QKCiMvYW4Y1OREpQ",
   pactBrokerUsername: pactBrokerUsername,
   pactBrokerPassword: pactBrokerPassword,
-  tags: ["prod", "qa"],
-  consumerVersion: gitHash,
+  tags: ["master", "test"],
+  consumerVersion: exec("git rev-parse HEAD")
+  // tags: [process.env.GIT_BRANCH || exec("git rev-parse --abbrev-ref HEAD")],
+  // consumerVersion: process.env.GIT_COMMIT || exec("git rev-parse HEAD")
 };
 
 pact

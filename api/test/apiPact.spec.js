@@ -34,8 +34,10 @@ describe("Pact Verification", () => {
       pactBrokerUrl: process.env.PACT_BROKER_URL || "http://localhost:8000",
       pactBrokerUsername: process.env.PACT_BROKER_USERNAME || "pact_workshop",
       pactBrokerPassword: process.env.PACT_BROKER_PASSWORD || "pact_workshop",
-      publishVerificationResult: true,
-      enablePending: true,
+      publishVerificationResults: true,
+      // providerVersion: process.env.GIT_COMMIT,
+      // providerVersionTag: process.env.GIT_BRANCH,
+      // consumerVersionSelectors: [ { tag: process.env.GIT_BRANCH, latest: true } ],
       stateHandlers: {
         "Generate films": () => {
           controller.filmRepository.clear();
