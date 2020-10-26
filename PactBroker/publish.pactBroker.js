@@ -4,7 +4,6 @@ const path = require("path");
 let pactBrokerUrl = "http://localhost:8000";
 let pactBrokerUsername = process.env.PACT_BROKER_USERNAME || "pact_workshop";
 let pactBrokerPassword = process.env.PACT_BROKER_PASSWORD || "pact_workshop";
-let pactBrokerUrl = "http://localhost:8000"
 
 const exec = command =>
   require("child_process")
@@ -16,7 +15,7 @@ const opts = {
   pactBroker: pactBrokerUrl,
   pactBrokerUsername: pactBrokerUsername,
   pactBrokerPassword: pactBrokerPassword,
-  tags: ["master", "test"],
+  tags: ["master", "7-Protecting-provider-builds"],
   consumerVersion: exec("git rev-parse HEAD")
   // tags: [process.env.GIT_BRANCH || exec("git rev-parse --abbrev-ref HEAD")],
   // consumerVersion: process.env.GIT_COMMIT || exec("git rev-parse HEAD")
