@@ -29,19 +29,19 @@ describe("Pact Verification", () => {
     let opts = {
       logLevel: "INFO",
       provider: "FilmsProvider",
-      providerVersion: "2.0.0",
+      // providerVersion: "2.0.0",
       providerBaseUrl: "http://localhost:3000",
       pactBrokerUrl: process.env.PACT_BROKER_URL || "http://localhost:8000",
       pactBrokerUsername: process.env.PACT_BROKER_USERNAME || "pact_workshop",
       pactBrokerPassword: process.env.PACT_BROKER_PASSWORD || "pact_workshop",
       publishVerificationResults: true,
-      providerVersionTags: ["7-Protecting-provider-builds", "master"],
-      consumerVersionSelectors: [ { tag: "7-Protecting-provider-builds", latest: true }, { tag: "master", latest: true } ],
+      // providerVersionTags: ["7-Protecting-provider-builds", "master"],
+      // consumerVersionSelectors: [ { tag: "7-Protecting-provider-builds", latest: true }, { tag: "master", latest: true } ],
       enablePending: true,
       includeWipPactsSince: "2020-10-12",
-      // providerVersion: process.env.GIT_COMMIT,
-      // providerVersionTag: process.env.GIT_BRANCH,
-      // consumerVersionSelectors: [ { tag: process.env.GIT_BRANCH, latest: true } ],
+      providerVersion: process.env.GIT_COMMIT,
+      providerVersionTag: process.env.GIT_BRANCH,
+      consumerVersionSelectors: [ { tag: process.env.GIT_BRANCH, latest: true } ],
       stateHandlers: {
         "Generate films": () => {
           controller.filmRepository.clear();

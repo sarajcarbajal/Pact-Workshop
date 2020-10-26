@@ -15,10 +15,10 @@ const opts = {
   pactBroker: pactBrokerUrl,
   pactBrokerUsername: pactBrokerUsername,
   pactBrokerPassword: pactBrokerPassword,
-  tags: ["master", "7-Protecting-provider-builds"],
-  consumerVersion: exec("git rev-parse HEAD")
+  tags: ["master", process.env.GIT_BRANCH ],
+  // consumerVersion: exec("git rev-parse HEAD")
   // tags: [process.env.GIT_BRANCH || exec("git rev-parse --abbrev-ref HEAD")],
-  // consumerVersion: process.env.GIT_COMMIT || exec("git rev-parse HEAD")
+  consumerVersion: process.env.GIT_COMMIT,
 };
 
 pact
