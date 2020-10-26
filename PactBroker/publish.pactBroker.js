@@ -17,7 +17,7 @@ const opts = {
   //pactBrokerToken: "jiH7q2QKCiMvYW4Y1OREpQ",
   pactBrokerUsername: pactBrokerUsername,
   pactBrokerPassword: pactBrokerPassword,
-  tags: ["prod", "test"],
+  tags: ["master", "6-PactBroker"],
   consumerVersion: gitHash,
 };
 
